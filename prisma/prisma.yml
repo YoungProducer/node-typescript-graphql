@@ -1,0 +1,13 @@
+endpoint: http://0.0.0.0:4466
+#endpoint: http://localhost:4466/node-typescript/dev
+datamodel: datamodel.prisma
+databaseType: document
+secret: ${env:PRISMA_MANAGEMENT_API_SECRET}
+
+generate:
+  - generator: typescript-client
+    output: ./generated/prisma-client/
+
+hooks: 
+  post-deploy:
+    - npx nexus-prisma-generate --client ./prisma/generated/prisma-client --output ./prisma/generated/nexus-prisma

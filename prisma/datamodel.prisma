@@ -1,0 +1,16 @@
+type User {
+  id: ID! @id
+  userName: String @unique
+  email: String! @unique
+  password: String!
+  refreshTokens: [Token] @relation(link: INLINE)
+}
+
+type Token {
+  id: ID! @id
+  token: String!
+  loginId: String!
+  user: User!
+}
+
+

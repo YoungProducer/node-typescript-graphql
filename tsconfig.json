@@ -1,0 +1,26 @@
+{
+    "compilerOptions": {
+      "outDir": "./build/",
+      "noImplicitAny": true,
+      "target": "esnext",
+      "module": "commonjs",
+      "sourceMap": true,
+      "allowJs": true,
+      "lib": [ "es2015", "dom", "esnext.asynciterable"],
+      "experimentalDecorators": true,
+      "emitDecoratorMetadata": true,
+      "paths": {
+        "lib/*": ["./lib"]
+      },
+      "baseUrl": "./"
+    },
+    "exclude": [
+      "/node_modules/",
+      "/webpack.config.js",
+    ],
+    "include": [
+      "./lib/**/*.ts",
+      "./lib/**/*.test.ts",
+      "./config/**/*.ts"
+    ]
+}
