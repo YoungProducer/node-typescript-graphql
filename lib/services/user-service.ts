@@ -47,3 +47,5 @@ export class MyUserService implements UserService {
         };
     }
 }
+
+export const userService = new MyUserService();

@@ -139,11 +139,6 @@ export interface NexusGenRootTypes {
   AggregateUser: { // root type
     count: number; // Int!
   }
-  AuthPayload: { // root type
-    email?: string | null; // String
-    password?: string | null; // String
-    user?: NexusGenRootTypes['User'] | null; // User
-  }
   Mutation: {};
   PageInfo: { // root type
     endCursor?: string | null; // String
@@ -152,6 +147,11 @@ export interface NexusGenRootTypes {
     startCursor?: string | null; // String
   }
   Query: {};
+  SignUpPayload: { // root type
+    email?: string | null; // String
+    password?: string | null; // String
+    user?: NexusGenRootTypes['User'] | null; // User
+  }
   Token: { // root type
     id: string; // ID!
     loginId: string; // String!
@@ -202,13 +202,8 @@ export interface NexusGenFieldTypes {
   AggregateUser: { // field return type
     count: number; // Int!
   }
-  AuthPayload: { // field return type
-    email: string | null; // String
-    password: string | null; // String
-    user: NexusGenRootTypes['User'] | null; // User
-  }
   Mutation: { // field return type
-    signup: NexusGenRootTypes['AuthPayload'] | null; // AuthPayload
+    signup: NexusGenRootTypes['SignUpPayload'] | null; // SignUpPayload
   }
   PageInfo: { // field return type
     endCursor: string | null; // String
@@ -223,6 +218,11 @@ export interface NexusGenFieldTypes {
     user: NexusGenRootTypes['User'] | null; // User
     users: NexusGenRootTypes['User'][]; // [User!]!
     usersConnection: NexusGenRootTypes['UserConnection']; // UserConnection!
+  }
+  SignUpPayload: { // field return type
+    email: string | null; // String
+    password: string | null; // String
+    user: NexusGenRootTypes['User'] | null; // User
   }
   Token: { // field return type
     id: string; // ID!
@@ -316,7 +316,7 @@ export interface NexusGenAbstractResolveReturnTypes {
 
 export interface NexusGenInheritedFields {}
 
-export type NexusGenObjectNames = "AggregateToken" | "AggregateUser" | "AuthPayload" | "Mutation" | "PageInfo" | "Query" | "Token" | "TokenConnection" | "TokenEdge" | "User" | "UserConnection" | "UserEdge";
+export type NexusGenObjectNames = "AggregateToken" | "AggregateUser" | "Mutation" | "PageInfo" | "Query" | "SignUpPayload" | "Token" | "TokenConnection" | "TokenEdge" | "User" | "UserConnection" | "UserEdge";
 
 export type NexusGenInputNames = "TokenWhereInput" | "TokenWhereUniqueInput" | "UserWhereInput" | "UserWhereUniqueInput";
 

@@ -2,7 +2,7 @@ endpoint: http://0.0.0.0:4466
 #endpoint: http://localhost:4466/node-typescript/dev
 datamodel: datamodel.prisma
 databaseType: document
-secret: ${env:PRISMA_MANAGEMENT_API_SECRET}
+secret: my-secret-42
 
 generate:
   - generator: typescript-client

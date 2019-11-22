@@ -57,9 +57,9 @@ const schema = makePrismaSchema({
 
 const server = new GraphQLServer({
     schema,
-    context: request => {
+    context: req => {
         return {
-            ...request,
+            ...req,
             prisma,
         };
     },
@@ -81,8 +81,6 @@ const corsOptions = {
 
 // Set up CSRF protection
 export const csrfProtection = csrf({ cookie: true });
-
-server.express.use();
 
 // Set up port
 app.set('port', PORT);
@@ -139,7 +137,6 @@ app.get('/', (req: Request, res: Response, next: NextFunction) => {
 //         console.log(`App listening to ${app.get('port')}...`, app.get('env'));
 //     });
 // }
-
 server.start(() => console.log(`Server ready at http://localhost:4000`));
 
 export default app;

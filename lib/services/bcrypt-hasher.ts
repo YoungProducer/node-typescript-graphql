@@ -18,3 +18,5 @@ export class BcryptHasher implements PasswordHasher {
         return isMatched;
     }
 }
+
+export const bcryptHasher = new BcryptHasher();
