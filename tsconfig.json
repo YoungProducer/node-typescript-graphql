@@ -8,11 +8,7 @@
       "allowJs": true,
       "lib": [ "es2015", "dom", "esnext.asynciterable"],
       "experimentalDecorators": true,
-      "emitDecoratorMetadata": true,
-      "paths": {
-        "lib/*": ["./lib"]
-      },
-      "baseUrl": "./"
+      "emitDecoratorMetadata": true
     },
     "exclude": [
       "/node_modules/",

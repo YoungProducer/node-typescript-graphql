@@ -276,6 +276,8 @@ input TokenWhereInput {
 
 input TokenWhereUniqueInput {
   id: ID
+  token: String
+  loginId: String
 }
 
 type User {

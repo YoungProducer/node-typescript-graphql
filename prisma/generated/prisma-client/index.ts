@@ -162,6 +162,8 @@ export type MutationType = "CREATED" | "UPDATED" | "DELETED";
 
 export type TokenWhereUniqueInput = AtLeastOne<{
   id: Maybe<ID_Input>;
+  token?: Maybe<String>;
+  loginId?: Maybe<String>;
 }>;
 
 export interface TokenWhereInput {

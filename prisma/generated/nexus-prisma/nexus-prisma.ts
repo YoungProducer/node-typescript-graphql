@@ -1438,10 +1438,14 @@ export type UserWhereInputInputObject =
   
 export interface TokenWhereUniqueInput {
   id?: string | null
+  token?: string | null
+  loginId?: string | null
 }
 export type TokenWhereUniqueInputInputObject =
   | Extract<keyof TokenWhereUniqueInput, string>
   | { name: 'id', alias?: string  } 
+  | { name: 'token', alias?: string  } 
+  | { name: 'loginId', alias?: string  } 
   
 export interface UserCreateInput {
   id?: string | null

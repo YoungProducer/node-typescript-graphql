@@ -8,6 +8,7 @@ import {
 import { RefreshTokenService } from '../types/services';
 import { UserProfile, securityId } from '../types/auth';
 import { JWT_SERVICE } from '../constants/index';
+import { prisma, User, Token } from '../../prisma/generated/prisma-client';
 
 const uuid = require('uuid/v4');
 const jwt = require('jsonwebtoken');
@@ -29,30 +30,36 @@ export class JWTRefreshService implements RefreshTokenService {
             // If refreshToken is incorrect - delete all tokens related to current user with same hash properties
             // If refreshToken is correct then delete provided refreshToken which related to current user
 
-            const foundToken = await TokenController.findOne({ token });
+            // const foundToken = await TokenController.findOne({ token });
 
             const decodedToken = await verifyAsync(
                 token,
                 JWT_SERVICE.REFRESH_TOKEN_SECRET,
             );
 
-            const foundUser = await UserController.findOne({ email: decodedToken.email });
-            const refreshTokens = foundUser.refreshTokens;
-
-            await TokenController.deleteMany({ loginId: decodedToken.hash });
-
-            foundUser.refreshTokens = refreshTokens.filter(token => {
-                return token.loginId !== decodedToken.hash;
-            });
-            foundUser.save(err => {
-                if (err) {
-                    throw err;
-                }
-            });
-
+            const foundToken: Token = await prisma.token({ token });
+            // const foundToken: Token = await prisma.user({ email: decodedToken.email });
             if (!foundToken) {
                 throw new HttpErrors.Unauthorized('Invalid refresh token');
             }
+
+            console.log(await prisma.deleteManyTokens({ loginId: foundToken.loginId }));
+
+            // const foundUser = await UserController.findOne({ email: decodedToken.email });
+            // const refreshTokens = foundUser.refreshTokens;
+
+            // await TokenController.deleteMany({ loginId: decodedToken.hash });
+
+            // foundUser.refreshTokens = refreshTokens.filter(token => {
+            //     return token.loginId !== decodedToken.hash;
+            // });
+            // foundUser.save(err => {
+            //     if (err) {
+            //         throw err;
+            //     }
+            // });
+
+            console.log(decodedToken);
 
             userProfile = Object.assign(
                 {
@@ -62,7 +69,7 @@ export class JWTRefreshService implements RefreshTokenService {
                     hash: "",
                 },
                 {
-                    [securityId]: decodedToken.bind,
+                    [securityId]: decodedToken.id,
                     userName: decodedToken.userName,
                     email: decodedToken.email,
                     hash: decodedToken.hash,
@@ -102,25 +109,24 @@ export class JWTRefreshService implements RefreshTokenService {
                 },
             );
 
-            const foundUser = await UserController.findOne({ email: userProfile.email });
+            // Validate userProfile
+            const foundUser = await prisma.user({ email: userProfile.email });
+            // const foundUser = await UserController.findOne({ email: userProfile.email });
 
             if (!foundUser) {
                 throw new HttpErrors.Unauthorized('Invalid userProfile');
             }
 
-            const refreshToken = await TokenController.create({
-                token,
-                user: foundUser,
-                loginId: userInfoForToken.hash,
-            });
+            console.log(userInfoForToken);
 
-            foundUser.refreshTokens.push(refreshToken);
-            foundUser.save(err => {
-                if (err) {
-                    throw err;
-                }
-            });
             // Create record in database
+            const refreshToken = await prisma.createToken({
+                token,
+                loginId: userInfoForToken.hash,
+                user: {
+                    connect: { email: userProfile.email },
+                },
+            });
         } catch (error) {
             throw new HttpErrors.Unauthorized(
                 `Error generating refresh token: ${error.message}`,
@@ -130,3 +136,5 @@ export class JWTRefreshService implements RefreshTokenService {
         return token;
     }
 }
+
+export const jwtRefreshService = new JWTRefreshService();

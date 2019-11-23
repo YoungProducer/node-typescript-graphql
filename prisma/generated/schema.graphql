@@ -11,6 +11,8 @@ type AggregateUser {
 }
 
 type Mutation {
+  refresh(token: String): RefreshPayload
+  signin(email: String, password: String): SignInPayload
   signup(email: String, password: String, userName: String): SignUpPayload
 }
 
@@ -30,10 +32,22 @@ type Query {
   usersConnection(after: String, before: String, first: Int, last: Int, orderBy: UserOrderByInput, skip: Int, where: UserWhereInput): UserConnection!
 }
 
+type RefreshPayload {
+  email: String
+  id: String
+  userName: String
+}
+
+type SignInPayload {
+  email: String
+  id: String
+  userName: String
+}
+
 type SignUpPayload {
   email: String
-  password: String
-  user: User
+  id: String
+  userName: String
 }
 
 type Token {
@@ -112,6 +126,8 @@ input TokenWhereInput {
 
 input TokenWhereUniqueInput {
   id: ID
+  loginId: String
+  token: String
 }
 
 type User {

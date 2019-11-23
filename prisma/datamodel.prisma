@@ -3,14 +3,14 @@ type User {
   userName: String @unique
   email: String! @unique
   password: String!
-  refreshTokens: [Token] @relation(link: INLINE)
+  refreshTokens: [Token!]!
 }
 
 type Token {
   id: ID! @id
-  token: String!
-  loginId: String!
-  user: User!
+  token: String! @unique
+  loginId: String! @unique
+  user: User! @relation(link: INLINE)
 }
 
 

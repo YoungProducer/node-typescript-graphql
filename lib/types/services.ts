@@ -5,6 +5,7 @@ import {
 import {
     UserModel,
 } from '../models/user';
+import { User } from '../../prisma/generated/prisma-client';
 
 export interface PasswordHasher<T = string> {
     hashPassword(password: T): Promise<string>;
@@ -22,6 +23,6 @@ export interface RefreshTokenService {
 }
 
 export interface UserService {
-    verifyCredentials(credentials: SignInCredentials): Promise<UserModel>;
-    convertToUserProfile(user: UserModel): UserProfile;
+    verifyCredentials(credentials: SignInCredentials): Promise<User>;
+    convertToUserProfile(user: User): UserProfile;
 }

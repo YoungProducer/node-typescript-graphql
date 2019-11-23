@@ -1,9 +1,11 @@
-import { Mutation } from './Mutation';
+import { Auth } from './Mutation';
 import { User } from './User';
-import { SignUpPayload } from './SignUpPayload';
+import { SignUpPayload, SignInPayload, RefreshPayload } from './AuthPayloads';
 
 export const resolvers = {
-    Mutation,
+    Auth,
     User,
     SignUpPayload,
+    SignInPayload,
+    RefreshPayload,
 };

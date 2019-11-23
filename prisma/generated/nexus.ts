@@ -59,6 +59,8 @@ export interface NexusGenInputs {
   }
   TokenWhereUniqueInput: { // input type
     id?: string | null; // ID
+    loginId?: string | null; // String
+    token?: string | null; // String
   }
   UserWhereInput: { // input type
     AND?: NexusGenInputs['UserWhereInput'][] | null; // [UserWhereInput!]
@@ -147,10 +149,20 @@ export interface NexusGenRootTypes {
     startCursor?: string | null; // String
   }
   Query: {};
+  RefreshPayload: { // root type
+    email?: string | null; // String
+    id?: string | null; // String
+    userName?: string | null; // String
+  }
+  SignInPayload: { // root type
+    email?: string | null; // String
+    id?: string | null; // String
+    userName?: string | null; // String
+  }
   SignUpPayload: { // root type
     email?: string | null; // String
-    password?: string | null; // String
-    user?: NexusGenRootTypes['User'] | null; // User
+    id?: string | null; // String
+    userName?: string | null; // String
   }
   Token: { // root type
     id: string; // ID!
@@ -203,6 +215,8 @@ export interface NexusGenFieldTypes {
     count: number; // Int!
   }
   Mutation: { // field return type
+    refresh: NexusGenRootTypes['RefreshPayload'] | null; // RefreshPayload
+    signin: NexusGenRootTypes['SignInPayload'] | null; // SignInPayload
     signup: NexusGenRootTypes['SignUpPayload'] | null; // SignUpPayload
   }
   PageInfo: { // field return type
@@ -219,10 +233,20 @@ export interface NexusGenFieldTypes {
     users: NexusGenRootTypes['User'][]; // [User!]!
     usersConnection: NexusGenRootTypes['UserConnection']; // UserConnection!
   }
+  RefreshPayload: { // field return type
+    email: string | null; // String
+    id: string | null; // String
+    userName: string | null; // String
+  }
+  SignInPayload: { // field return type
+    email: string | null; // String
+    id: string | null; // String
+    userName: string | null; // String
+  }
   SignUpPayload: { // field return type
     email: string | null; // String
-    password: string | null; // String
-    user: NexusGenRootTypes['User'] | null; // User
+    id: string | null; // String
+    userName: string | null; // String
   }
   Token: { // field return type
     id: string; // ID!
@@ -259,6 +283,13 @@ export interface NexusGenFieldTypes {
 
 export interface NexusGenArgTypes {
   Mutation: {
+    refresh: { // args
+      token?: string | null; // String
+    }
+    signin: { // args
+      email?: string | null; // String
+      password?: string | null; // String
+    }
     signup: { // args
       email?: string | null; // String
       password?: string | null; // String
@@ -316,7 +347,7 @@ export interface NexusGenAbstractResolveReturnTypes {
 
 export interface NexusGenInheritedFields {}
 
-export type NexusGenObjectNames = "AggregateToken" | "AggregateUser" | "Mutation" | "PageInfo" | "Query" | "SignUpPayload" | "Token" | "TokenConnection" | "TokenEdge" | "User" | "UserConnection" | "UserEdge";
+export type NexusGenObjectNames = "AggregateToken" | "AggregateUser" | "Mutation" | "PageInfo" | "Query" | "RefreshPayload" | "SignInPayload" | "SignUpPayload" | "Token" | "TokenConnection" | "TokenEdge" | "User" | "UserConnection" | "UserEdge";
 
 export type NexusGenInputNames = "TokenWhereInput" | "TokenWhereUniqueInput" | "UserWhereInput" | "UserWhereUniqueInput";
 

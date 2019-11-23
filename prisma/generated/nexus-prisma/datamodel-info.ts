@@ -6,7 +6,7 @@
 export default {
   uniqueFieldsByModel: {
     User: ['id', 'userName', 'email'],
-    Token: ['id']
+    Token: ['id', 'token', 'loginId']
   },
   embeddedTypes: [],
   clientPath: 'prisma/generated/prisma-client',
@@ -2276,6 +2276,26 @@ export default {
             "type": {
               "kind": "SCALAR",
               "name": "ID",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "token",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "loginId",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
               "ofType": null
             },
             "defaultValue": null
