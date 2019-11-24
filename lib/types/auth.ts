@@ -1,3 +1,6 @@
+import { Request } from 'express';
+import { Role } from '../../prisma/generated/prisma-client';
+
 export declare const securityId: unique symbol;
 
 export interface Principal {
@@ -19,4 +22,10 @@ export interface SignInCredentials {
 export interface UserProfile extends Principal {
     email: string;
     userName: string;
+    role: Role;
+}
+
+export interface AuthStrategy {
+    authenticate(request: Request): Promise<UserProfile | undefined>;
+    extractCredentials(request: Request): string;
 }

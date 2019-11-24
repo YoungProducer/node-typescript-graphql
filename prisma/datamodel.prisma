@@ -3,6 +3,7 @@ type User {
   userName: String @unique
   email: String! @unique
   password: String!
+  role: Role!
   refreshTokens: [Token!]!
 }
 
@@ -14,3 +15,7 @@ type Token {
 }
 
 
+enum Role {
+  ADMIN,
+  DEFAULT_USER,
+}

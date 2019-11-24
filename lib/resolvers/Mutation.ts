@@ -2,8 +2,11 @@ import {
     stringArg,
     idArg,
     mutationType,
+    objectType,
 } from 'nexus';
 import * as _ from 'lodash';
+
+import { prismaObjectType } from 'nexus-prisma';
 
 import {
     SignUpCredentials,
@@ -16,6 +19,33 @@ import { validateCredentials } from '../services/validator';
 import { bcryptHasher } from '../services/bcrypt-hasher';
 import { jwtAccessService } from '../services/access-service';
 import { jwtRefreshService } from '../services/refresh-service';
+import { JWT_SERVICE } from '../constants';
+
+// export const mutation = prismaObjectType({
+//     name: 'Mutations',
+//     definition(t) {
+//         t.prismaFields(['createUser']);
+//         t.field('add', {
+//             type: 'User',
+//             args: {
+//                 email: stringArg(),
+//                 password: stringArg(),
+//                 userName: stringArg({ nullable: true }),
+//             },
+//             resolve: async (root, args, ctx, info) => {
+//                 const user = ctx.prisma.createUser({
+//                     email: ctx.email,
+//                     password: ctx.password,
+//                     userName: ctx.userName,
+//                 });
+
+//                 return {
+//                     ...user,
+//                 };
+//             },
+//         });
+//     },
+// });
 
 export const Auth = mutationType({
     definition(t) {
@@ -35,6 +65,7 @@ export const Auth = mutationType({
                     email: credentials.email,
                     password: credentials.password,
                     userName: credentials.userName,
+                    role: "DEFAULT_USER",
                 });
 
                 return {
@@ -56,9 +87,25 @@ export const Auth = mutationType({
                 const userProfile: UserProfile = userService.convertToUserProfile(user);
 
                 // Generate new access token
-                const accessToken = jwtAccessService.generateToken(userProfile);
+                const accessToken = await jwtAccessService.generateToken(userProfile);
+                // Generate new refresh token
+                const refreshToken = await jwtRefreshService.generateToken(userProfile);
 
-                const refreshToken = jwtRefreshService.generateToken(userProfile);
+                const timezoneOffset = new Date().getTimezoneOffset();
+                const accessTokenExpirationDate = new Date(Date.now() + (timezoneOffset * -1 * 60 * 1000) + (Number(JWT_SERVICE.JWT_EXPIRES_IN)));
+                const refreshTokenExpirationDate = new Date(Date.now() + (timezoneOffset * -1 * 60 * 1000) + (Number(JWT_SERVICE.REFRESH_EXPIRES_IN)));
+
+                ctx.response.cookie('accessToken', `Bearer ${accessToken}`, {
+                    httpOnly: true,
+                    // secure: // Uncomment in production mode,
+                    expires: accessTokenExpirationDate,
+                });
+
+                ctx.response.cookie('refreshToken', refreshToken, {
+                    httpOnly: true,
+                    // secure: // Uncomment in production mode,
+                    expires: refreshTokenExpirationDate,
+                });
 
                 return {
                     ...userProfile,
@@ -75,9 +122,27 @@ export const Auth = mutationType({
 
                 const refreshToken = await jwtRefreshService.generateToken(userProfile);
 
+                const timezoneOffset = new Date().getTimezoneOffset();
+                const refreshTokenExpirationDate = new Date(Date.now() + (timezoneOffset * -1 * 60 * 1000) + (Number(JWT_SERVICE.REFRESH_EXPIRES_IN)));
+
+                ctx.response.cookie('refreshToken', refreshToken, {
+                    httpOnly: true,
+                    // secure: // Uncomment in production mode,
+                    expires: refreshTokenExpirationDate,
+                });
+
                 return {
                     ...userProfile,
                 };
+            },
+        });
+        t.field('protected', {
+            type: 'Protected',
+            args: {
+                data: stringArg(),
+            },
+            resolve: async (root, credentials, ctx) => {
+                return credentials.data;
             },
         });
     },

@@ -26,40 +26,18 @@ export class JWTRefreshService implements RefreshTokenService {
         let userProfile: UserProfile;
 
         try {
-            // Find token in database
-            // If refreshToken is incorrect - delete all tokens related to current user with same hash properties
-            // If refreshToken is correct then delete provided refreshToken which related to current user
-
-            // const foundToken = await TokenController.findOne({ token });
-
             const decodedToken = await verifyAsync(
                 token,
                 JWT_SERVICE.REFRESH_TOKEN_SECRET,
             );
 
             const foundToken: Token = await prisma.token({ token });
-            // const foundToken: Token = await prisma.user({ email: decodedToken.email });
+
             if (!foundToken) {
                 throw new HttpErrors.Unauthorized('Invalid refresh token');
             }
 
-            console.log(await prisma.deleteManyTokens({ loginId: foundToken.loginId }));
-
-            // const foundUser = await UserController.findOne({ email: decodedToken.email });
-            // const refreshTokens = foundUser.refreshTokens;
-
-            // await TokenController.deleteMany({ loginId: decodedToken.hash });
-
-            // foundUser.refreshTokens = refreshTokens.filter(token => {
-            //     return token.loginId !== decodedToken.hash;
-            // });
-            // foundUser.save(err => {
-            //     if (err) {
-            //         throw err;
-            //     }
-            // });
-
-            console.log(decodedToken);
+            await prisma.deleteManyTokens({ loginId: foundToken.loginId });
 
             userProfile = Object.assign(
                 {
@@ -67,12 +45,14 @@ export class JWTRefreshService implements RefreshTokenService {
                     userName: "",
                     email: "",
                     hash: "",
+                    role: "",
                 },
                 {
                     [securityId]: decodedToken.id,
                     userName: decodedToken.userName,
                     email: decodedToken.email,
                     hash: decodedToken.hash,
+                    role: decodedToken.role,
                 },
             );
         } catch (error) {
@@ -84,7 +64,6 @@ export class JWTRefreshService implements RefreshTokenService {
         return userProfile;
     }
 
-    // In Rest API after successful token verifying push received UserProfile to this function
     async generateToken(userProfile: UserProfile): Promise<string> {
         if (!userProfile) {
             throw new HttpErrors.Unauthorized(
@@ -97,6 +76,7 @@ export class JWTRefreshService implements RefreshTokenService {
             userName: userProfile.userName,
             email: userProfile.email,
             hash: userProfile.hash || uuid(),
+            role: userProfile.role,
         };
 
         let token: string = '';
@@ -111,13 +91,10 @@ export class JWTRefreshService implements RefreshTokenService {
 
             // Validate userProfile
             const foundUser = await prisma.user({ email: userProfile.email });
-            // const foundUser = await UserController.findOne({ email: userProfile.email });
 
             if (!foundUser) {
                 throw new HttpErrors.Unauthorized('Invalid userProfile');
             }
-
-            console.log(userInfoForToken);
 
             // Create record in database
             const refreshToken = await prisma.createToken({

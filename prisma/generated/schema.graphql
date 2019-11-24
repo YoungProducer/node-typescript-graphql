@@ -11,6 +11,7 @@ type AggregateUser {
 }
 
 type Mutation {
+  protected(data: String): Protected
   refresh(token: String): RefreshPayload
   signin(email: String, password: String): SignInPayload
   signup(email: String, password: String, userName: String): SignUpPayload
@@ -21,6 +22,10 @@ type PageInfo {
   hasNextPage: Boolean!
   hasPreviousPage: Boolean!
   startCursor: String
+}
+
+type Protected {
+  data: String
 }
 
 type Query {
@@ -36,6 +41,11 @@ type RefreshPayload {
   email: String
   id: String
   userName: String
+}
+
+enum Role {
+  ADMIN
+  DEFAULT_USER
 }
 
 type SignInPayload {
@@ -156,6 +166,8 @@ enum UserOrderByInput {
   id_DESC
   password_ASC
   password_DESC
+  role_ASC
+  role_DESC
   userName_ASC
   userName_DESC
 }
@@ -205,6 +217,10 @@ input UserWhereInput {
   password_not_starts_with: String
   password_starts_with: String
   refreshTokens_some: TokenWhereInput
+  role: Role
+  role_in: [Role!]
+  role_not: Role
+  role_not_in: [Role!]
   userName: String
   userName_contains: String
   userName_ends_with: String

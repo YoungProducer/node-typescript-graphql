@@ -10,7 +10,7 @@ export namespace USER_SERVICE {
 
 export namespace JWT_SERVICE {
     export const JWT_SECRET = 'sup3rs3cr3tk3y';
-    export const JWT_EXPIRES_IN = '216000';
+    export const JWT_EXPIRES_IN = '900000';
     export const REFRESH_TOKEN_SECRET = '446fc55c-aeb8-4a18-936a-010cc339e508';
-    export const REFRESH_EXPIRES_IN = '2592000';
+    export const REFRESH_EXPIRES_IN = '2592000000';
 }

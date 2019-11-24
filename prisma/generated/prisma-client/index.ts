@@ -140,6 +140,8 @@ export interface ClientConstructor<T> {
  * Types
  */
 
+export type Role = "ADMIN" | "DEFAULT_USER";
+
 export type TokenOrderByInput =
   | "id_ASC"
   | "id_DESC"
@@ -156,7 +158,9 @@ export type UserOrderByInput =
   | "email_ASC"
   | "email_DESC"
   | "password_ASC"
-  | "password_DESC";
+  | "password_DESC"
+  | "role_ASC"
+  | "role_DESC";
 
 export type MutationType = "CREATED" | "UPDATED" | "DELETED";
 
@@ -270,6 +274,10 @@ export interface UserWhereInput {
   password_not_starts_with?: Maybe<String>;
   password_ends_with?: Maybe<String>;
   password_not_ends_with?: Maybe<String>;
+  role?: Maybe<Role>;
+  role_not?: Maybe<Role>;
+  role_in?: Maybe<Role[] | Role>;
+  role_not_in?: Maybe<Role[] | Role>;
   refreshTokens_some?: Maybe<TokenWhereInput>;
   AND?: Maybe<UserWhereInput[] | UserWhereInput>;
 }
@@ -297,6 +305,7 @@ export interface UserCreateWithoutRefreshTokensInput {
   userName?: Maybe<String>;
   email: String;
   password: String;
+  role: Role;
 }
 
 export interface TokenUpdateInput {
@@ -316,6 +325,7 @@ export interface UserUpdateWithoutRefreshTokensDataInput {
   userName?: Maybe<String>;
   email?: Maybe<String>;
   password?: Maybe<String>;
+  role?: Maybe<Role>;
 }
 
 export interface UserUpsertWithoutRefreshTokensInput {
@@ -333,6 +343,7 @@ export interface UserCreateInput {
   userName?: Maybe<String>;
   email: String;
   password: String;
+  role: Role;
   refreshTokens?: Maybe<TokenCreateManyWithoutUserInput>;
 }
 
@@ -351,6 +362,7 @@ export interface UserUpdateInput {
   userName?: Maybe<String>;
   email?: Maybe<String>;
   password?: Maybe<String>;
+  role?: Maybe<Role>;
   refreshTokens?: Maybe<TokenUpdateManyWithoutUserInput>;
 }
 
@@ -452,6 +464,7 @@ export interface UserUpdateManyMutationInput {
   userName?: Maybe<String>;
   email?: Maybe<String>;
   password?: Maybe<String>;
+  role?: Maybe<Role>;
 }
 
 export interface TokenSubscriptionWhereInput {
@@ -512,6 +525,7 @@ export interface User {
   userName?: String;
   email: String;
   password: String;
+  role: Role;
 }
 
 export interface UserPromise extends Promise<User>, Fragmentable {
@@ -519,6 +533,7 @@ export interface UserPromise extends Promise<User>, Fragmentable {
   userName: () => Promise<String>;
   email: () => Promise<String>;
   password: () => Promise<String>;
+  role: () => Promise<Role>;
   refreshTokens: <T = FragmentableArray<Token>>(args?: {
     where?: TokenWhereInput;
     orderBy?: TokenOrderByInput;
@@ -537,6 +552,7 @@ export interface UserSubscription
   userName: () => Promise<AsyncIterator<String>>;
   email: () => Promise<AsyncIterator<String>>;
   password: () => Promise<AsyncIterator<String>>;
+  role: () => Promise<AsyncIterator<Role>>;
   refreshTokens: <T = Promise<AsyncIterator<TokenSubscription>>>(args?: {
     where?: TokenWhereInput;
     orderBy?: TokenOrderByInput;
@@ -555,6 +571,7 @@ export interface UserNullablePromise
   userName: () => Promise<String>;
   email: () => Promise<String>;
   password: () => Promise<String>;
+  role: () => Promise<Role>;
   refreshTokens: <T = FragmentableArray<Token>>(args?: {
     where?: TokenWhereInput;
     orderBy?: TokenOrderByInput;
@@ -790,6 +807,7 @@ export interface UserPreviousValues {
   userName?: String;
   email: String;
   password: String;
+  role: Role;
 }
 
 export interface UserPreviousValuesPromise
@@ -799,6 +817,7 @@ export interface UserPreviousValuesPromise
   userName: () => Promise<String>;
   email: () => Promise<String>;
   password: () => Promise<String>;
+  role: () => Promise<Role>;
 }
 
 export interface UserPreviousValuesSubscription
@@ -808,6 +827,7 @@ export interface UserPreviousValuesSubscription
   userName: () => Promise<AsyncIterator<String>>;
   email: () => Promise<AsyncIterator<String>>;
   password: () => Promise<AsyncIterator<String>>;
+  role: () => Promise<AsyncIterator<Role>>;
 }
 
 /*
@@ -844,6 +864,10 @@ export const models: Model[] = [
   },
   {
     name: "Token",
+    embedded: false
+  },
+  {
+    name: "Role",
     embedded: false
   }
 ];

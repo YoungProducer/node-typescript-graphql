@@ -26,13 +26,17 @@ export class JWTAccessService implements AccessTokenService {
             userProfile = Object.assign(
                 {
                     [securityId]: "",
+                    id: "",
                     userName: "",
                     email: "",
+                    role: "",
                 },
                 {
-                    [securityId]: decodedToken.bind,
+                    [securityId]: decodedToken.id,
+                    id: decodedToken.id,
                     userName: decodedToken.userName,
                     email: decodedToken.email,
+                    role: decodedToken.role,
                 },
             );
         } catch (error) {
@@ -53,6 +57,7 @@ export class JWTAccessService implements AccessTokenService {
             id: userProfile[securityId],
             userName: userProfile.userName,
             email: userProfile.email,
+            role: userProfile.role,
         };
 
         let token: string = '';

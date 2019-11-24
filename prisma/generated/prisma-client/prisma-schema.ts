@@ -58,6 +58,11 @@ type Query {
   node(id: ID!): Node
 }
 
+enum Role {
+  ADMIN
+  DEFAULT_USER
+}
+
 type Subscription {
   token(where: TokenSubscriptionWhereInput): TokenSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
@@ -285,6 +290,7 @@ type User {
   userName: String
   email: String!
   password: String!
+  role: Role!
   refreshTokens(where: TokenWhereInput, orderBy: TokenOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Token!]
 }
 
@@ -299,6 +305,7 @@ input UserCreateInput {
   userName: String
   email: String!
   password: String!
+  role: Role!
   refreshTokens: TokenCreateManyWithoutUserInput
 }
 
@@ -312,6 +319,7 @@ input UserCreateWithoutRefreshTokensInput {
   userName: String
   email: String!
   password: String!
+  role: Role!
 }
 
 type UserEdge {
@@ -328,6 +336,8 @@ enum UserOrderByInput {
   email_DESC
   password_ASC
   password_DESC
+  role_ASC
+  role_DESC
 }
 
 type UserPreviousValues {
@@ -335,6 +345,7 @@ type UserPreviousValues {
   userName: String
   email: String!
   password: String!
+  role: Role!
 }
 
 type UserSubscriptionPayload {
@@ -357,6 +368,7 @@ input UserUpdateInput {
   userName: String
   email: String
   password: String
+  role: Role
   refreshTokens: TokenUpdateManyWithoutUserInput
 }
 
@@ -364,6 +376,7 @@ input UserUpdateManyMutationInput {
   userName: String
   email: String
   password: String
+  role: Role
 }
 
 input UserUpdateOneRequiredWithoutRefreshTokensInput {
@@ -377,6 +390,7 @@ input UserUpdateWithoutRefreshTokensDataInput {
   userName: String
   email: String
   password: String
+  role: Role
 }
 
 input UserUpsertWithoutRefreshTokensInput {
@@ -441,6 +455,10 @@ input UserWhereInput {
   password_not_starts_with: String
   password_ends_with: String
   password_not_ends_with: String
+  role: Role
+  role_not: Role
+  role_in: [Role!]
+  role_not_in: [Role!]
   refreshTokens_some: TokenWhereInput
   AND: [UserWhereInput!]
 }

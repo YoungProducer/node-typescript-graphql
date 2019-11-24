@@ -25,7 +25,7 @@ import * as allTypes from './resolvers';
 
 // Custom imports
 import { handleError } from './utils/errorHandler';
-import mainRouter from './routes';
+// import mainRouter from './routes';
 import { DataBaseController } from './utils/dataBaseController';
 
 const schema = makePrismaSchema({
@@ -105,7 +105,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Include all routes
-app.use('/', mainRouter);
+// app.use('/', mainRouter);
 
 // Allows to override express methods
 app.use(methodOverride());

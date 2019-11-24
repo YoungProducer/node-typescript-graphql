@@ -27,3 +27,10 @@ export const RefreshPayload = objectType({
         t.string('userName');
     },
 });
+
+export const Protected = objectType({
+    name: 'Protected',
+    definition(t) {
+        t.string('data');
+    },
+});

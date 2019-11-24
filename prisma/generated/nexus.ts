@@ -107,6 +107,10 @@ export interface NexusGenInputs {
     password_not_starts_with?: string | null; // String
     password_starts_with?: string | null; // String
     refreshTokens_some?: NexusGenInputs['TokenWhereInput'] | null; // TokenWhereInput
+    role?: NexusGenEnums['Role'] | null; // Role
+    role_in?: NexusGenEnums['Role'][] | null; // [Role!]
+    role_not?: NexusGenEnums['Role'] | null; // Role
+    role_not_in?: NexusGenEnums['Role'][] | null; // [Role!]
     userName?: string | null; // String
     userName_contains?: string | null; // String
     userName_ends_with?: string | null; // String
@@ -130,8 +134,9 @@ export interface NexusGenInputs {
 }
 
 export interface NexusGenEnums {
+  Role: "ADMIN" | "DEFAULT_USER"
   TokenOrderByInput: "id_ASC" | "id_DESC" | "loginId_ASC" | "loginId_DESC" | "token_ASC" | "token_DESC"
-  UserOrderByInput: "email_ASC" | "email_DESC" | "id_ASC" | "id_DESC" | "password_ASC" | "password_DESC" | "userName_ASC" | "userName_DESC"
+  UserOrderByInput: "email_ASC" | "email_DESC" | "id_ASC" | "id_DESC" | "password_ASC" | "password_DESC" | "role_ASC" | "role_DESC" | "userName_ASC" | "userName_DESC"
 }
 
 export interface NexusGenRootTypes {
@@ -147,6 +152,9 @@ export interface NexusGenRootTypes {
     hasNextPage: boolean; // Boolean!
     hasPreviousPage: boolean; // Boolean!
     startCursor?: string | null; // String
+  }
+  Protected: { // root type
+    data?: string | null; // String
   }
   Query: {};
   RefreshPayload: { // root type
@@ -203,6 +211,7 @@ export interface NexusGenAllTypes extends NexusGenRootTypes {
   TokenWhereUniqueInput: NexusGenInputs['TokenWhereUniqueInput'];
   UserWhereInput: NexusGenInputs['UserWhereInput'];
   UserWhereUniqueInput: NexusGenInputs['UserWhereUniqueInput'];
+  Role: NexusGenEnums['Role'];
   TokenOrderByInput: NexusGenEnums['TokenOrderByInput'];
   UserOrderByInput: NexusGenEnums['UserOrderByInput'];
 }
@@ -215,6 +224,7 @@ export interface NexusGenFieldTypes {
     count: number; // Int!
   }
   Mutation: { // field return type
+    protected: NexusGenRootTypes['Protected'] | null; // Protected
     refresh: NexusGenRootTypes['RefreshPayload'] | null; // RefreshPayload
     signin: NexusGenRootTypes['SignInPayload'] | null; // SignInPayload
     signup: NexusGenRootTypes['SignUpPayload'] | null; // SignUpPayload
@@ -224,6 +234,9 @@ export interface NexusGenFieldTypes {
     hasNextPage: boolean; // Boolean!
     hasPreviousPage: boolean; // Boolean!
     startCursor: string | null; // String
+  }
+  Protected: { // field return type
+    data: string | null; // String
   }
   Query: { // field return type
     token: NexusGenRootTypes['Token'] | null; // Token
@@ -283,6 +296,9 @@ export interface NexusGenFieldTypes {
 
 export interface NexusGenArgTypes {
   Mutation: {
+    protected: { // args
+      data?: string | null; // String
+    }
     refresh: { // args
       token?: string | null; // String
     }
@@ -347,11 +363,11 @@ export interface NexusGenAbstractResolveReturnTypes {
 
 export interface NexusGenInheritedFields {}
 
-export type NexusGenObjectNames = "AggregateToken" | "AggregateUser" | "Mutation" | "PageInfo" | "Query" | "RefreshPayload" | "SignInPayload" | "SignUpPayload" | "Token" | "TokenConnection" | "TokenEdge" | "User" | "UserConnection" | "UserEdge";
+export type NexusGenObjectNames = "AggregateToken" | "AggregateUser" | "Mutation" | "PageInfo" | "Protected" | "Query" | "RefreshPayload" | "SignInPayload" | "SignUpPayload" | "Token" | "TokenConnection" | "TokenEdge" | "User" | "UserConnection" | "UserEdge";
 
 export type NexusGenInputNames = "TokenWhereInput" | "TokenWhereUniqueInput" | "UserWhereInput" | "UserWhereUniqueInput";
 
-export type NexusGenEnumNames = "TokenOrderByInput" | "UserOrderByInput";
+export type NexusGenEnumNames = "Role" | "TokenOrderByInput" | "UserOrderByInput";
 
 export type NexusGenInterfaceNames = never;
 

@@ -83,6 +83,7 @@ export interface NexusPrismaTypes {
     }
   }
   enumTypes: {
+    Role: RoleValues,
     TokenOrderByInput: TokenOrderByInputValues,
     UserOrderByInput: UserOrderByInputValues,
     MutationType: MutationTypeValues,
@@ -237,6 +238,7 @@ type UserObject =
   | { name: 'userName', args?: [] | false, alias?: string  } 
   | { name: 'email', args?: [] | false, alias?: string  } 
   | { name: 'password', args?: [] | false, alias?: string  } 
+  | { name: 'role', args?: [] | false, alias?: string  } 
   | { name: 'refreshTokens', args?: UserRefreshTokensArgs[] | false, alias?: string  } 
 
 type UserFields =
@@ -244,6 +246,7 @@ type UserFields =
   | 'userName'
   | 'email'
   | 'password'
+  | 'role'
   | 'refreshTokens'
 
 
@@ -289,6 +292,19 @@ export interface UserFieldDetails {
     list: undefined
     nullable: false
     resolve: undefined
+  }
+  role: {
+    type: 'Role'
+    args: {}
+    description: string
+    list: undefined
+    nullable: false
+    resolve: (
+      root: core.RootValue<"User">,
+      args: {  }  ,
+      context: core.GetGen<"context">,
+      info?: GraphQLResolveInfo
+    ) => Promise<prisma.Role> | prisma.Role
   }
   refreshTokens: {
     type: 'Token'
@@ -1048,12 +1064,14 @@ type UserPreviousValuesObject =
   | { name: 'userName', args?: [] | false, alias?: string  } 
   | { name: 'email', args?: [] | false, alias?: string  } 
   | { name: 'password', args?: [] | false, alias?: string  } 
+  | { name: 'role', args?: [] | false, alias?: string  } 
 
 type UserPreviousValuesFields =
   | 'id'
   | 'userName'
   | 'email'
   | 'password'
+  | 'role'
 
 
 
@@ -1091,6 +1109,19 @@ export interface UserPreviousValuesFieldDetails {
     list: undefined
     nullable: false
     resolve: undefined
+  }
+  role: {
+    type: 'Role'
+    args: {}
+    description: string
+    list: undefined
+    nullable: false
+    resolve: (
+      root: core.RootValue<"UserPreviousValues">,
+      args: {  }  ,
+      context: core.GetGen<"context">,
+      info?: GraphQLResolveInfo
+    ) => Promise<prisma.Role> | prisma.Role
   }
 }
   
@@ -1372,6 +1403,10 @@ export interface UserWhereInput {
   password_not_starts_with?: string | null
   password_ends_with?: string | null
   password_not_ends_with?: string | null
+  role?: prisma.Role | null
+  role_not?: prisma.Role | null
+  role_in?: prisma.Role[]
+  role_not_in?: prisma.Role[]
   refreshTokens_some?: TokenWhereInput | null
   AND?: UserWhereInput[]
 }
@@ -1433,6 +1468,10 @@ export type UserWhereInputInputObject =
   | { name: 'password_not_starts_with', alias?: string  } 
   | { name: 'password_ends_with', alias?: string  } 
   | { name: 'password_not_ends_with', alias?: string  } 
+  | { name: 'role', alias?: string  } 
+  | { name: 'role_not', alias?: string  } 
+  | { name: 'role_in', alias?: string  } 
+  | { name: 'role_not_in', alias?: string  } 
   | { name: 'refreshTokens_some', alias?: string  } 
   | { name: 'AND', alias?: string  } 
   
@@ -1452,6 +1491,7 @@ export interface UserCreateInput {
   userName?: string | null
   email?: string
   password?: string
+  role?: prisma.Role
   refreshTokens?: TokenCreateManyWithoutUserInput | null
 }
 export type UserCreateInputInputObject =
@@ -1460,6 +1500,7 @@ export type UserCreateInputInputObject =
   | { name: 'userName', alias?: string  } 
   | { name: 'email', alias?: string  } 
   | { name: 'password', alias?: string  } 
+  | { name: 'role', alias?: string  } 
   | { name: 'refreshTokens', alias?: string  } 
   
 export interface TokenCreateManyWithoutUserInput {
@@ -1486,6 +1527,7 @@ export interface UserUpdateInput {
   userName?: string | null
   email?: string | null
   password?: string | null
+  role?: prisma.Role | null
   refreshTokens?: TokenUpdateManyWithoutUserInput | null
 }
 export type UserUpdateInputInputObject =
@@ -1493,6 +1535,7 @@ export type UserUpdateInputInputObject =
   | { name: 'userName', alias?: string  } 
   | { name: 'email', alias?: string  } 
   | { name: 'password', alias?: string  } 
+  | { name: 'role', alias?: string  } 
   | { name: 'refreshTokens', alias?: string  } 
   
 export interface TokenUpdateManyWithoutUserInput {
@@ -1664,12 +1707,14 @@ export interface UserUpdateManyMutationInput {
   userName?: string | null
   email?: string | null
   password?: string | null
+  role?: prisma.Role | null
 }
 export type UserUpdateManyMutationInputInputObject =
   | Extract<keyof UserUpdateManyMutationInput, string>
   | { name: 'userName', alias?: string  } 
   | { name: 'email', alias?: string  } 
   | { name: 'password', alias?: string  } 
+  | { name: 'role', alias?: string  } 
   
 export interface TokenCreateInput {
   id?: string | null
@@ -1698,6 +1743,7 @@ export interface UserCreateWithoutRefreshTokensInput {
   userName?: string | null
   email?: string
   password?: string
+  role?: prisma.Role
 }
 export type UserCreateWithoutRefreshTokensInputInputObject =
   | Extract<keyof UserCreateWithoutRefreshTokensInput, string>
@@ -1705,6 +1751,7 @@ export type UserCreateWithoutRefreshTokensInputInputObject =
   | { name: 'userName', alias?: string  } 
   | { name: 'email', alias?: string  } 
   | { name: 'password', alias?: string  } 
+  | { name: 'role', alias?: string  } 
   
 export interface TokenUpdateInput {
   token?: string | null
@@ -1734,12 +1781,14 @@ export interface UserUpdateWithoutRefreshTokensDataInput {
   userName?: string | null
   email?: string | null
   password?: string | null
+  role?: prisma.Role | null
 }
 export type UserUpdateWithoutRefreshTokensDataInputInputObject =
   | Extract<keyof UserUpdateWithoutRefreshTokensDataInput, string>
   | { name: 'userName', alias?: string  } 
   | { name: 'email', alias?: string  } 
   | { name: 'password', alias?: string  } 
+  | { name: 'role', alias?: string  } 
   
 export interface UserUpsertWithoutRefreshTokensInput {
   update?: UserUpdateWithoutRefreshTokensDataInput
@@ -1794,6 +1843,10 @@ export type TokenSubscriptionWhereInputInputObject =
   | { name: 'AND', alias?: string  } 
   
 
+export type RoleValues =
+  | 'ADMIN'
+  | 'DEFAULT_USER'
+  
 export type TokenOrderByInputValues =
   | 'id_ASC'
   | 'id_DESC'
@@ -1811,6 +1864,8 @@ export type UserOrderByInputValues =
   | 'email_DESC'
   | 'password_ASC'
   | 'password_DESC'
+  | 'role_ASC'
+  | 'role_DESC'
   
 export type MutationTypeValues =
   | 'CREATED'

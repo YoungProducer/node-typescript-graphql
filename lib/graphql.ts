@@ -14,18 +14,23 @@ import { HttpError } from 'http-errors';
 import { GraphQLServer } from 'graphql-yoga';
 import { prisma } from '../prisma/generated/prisma-client';
 import datamodelInfo from '../prisma/generated/nexus-prisma';
-import {
-    stringArg,
-    idArg,
-    makeSchema,
-    objectType,
-} from 'nexus';
 import { makePrismaSchema, prismaObjectType } from 'nexus-prisma';
 import * as allTypes from './resolvers';
 
 // Custom imports
 import { handleError } from './utils/errorHandler';
-import mainRouter from './routes';
+// import mainRouter from './routes';
+import { jwtAuthMiddleware } from './middleware/jwtAuthMiddleware';
+import { permissionsMiddlware } from './middleware/permissionsMiddleware';
+
+const authMiddleware = {
+    Mutation: {
+        protected: jwtAuthMiddleware,
+    },
+    Query: {
+        users: permissionsMiddlware,
+    },
+};
 
 const schema = makePrismaSchema({
     types: allTypes,
@@ -63,6 +68,7 @@ const server = new GraphQLServer({
             prisma,
         };
     },
+    middlewares: [authMiddleware],
 });
 
 // Get env congif
@@ -104,7 +110,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Include all routes
-app.use('/', mainRouter);
+// app.use('/', mainRouter);
 
 // Allows to override express methods
 app.use(methodOverride());
@@ -137,6 +143,8 @@ app.get('/', (req: Request, res: Response, next: NextFunction) => {
 //         console.log(`App listening to ${app.get('port')}...`, app.get('env'));
 //     });
 // }
+
+server.express.use(cookieParser());
 server.start(() => console.log(`Server ready at http://localhost:4000`));
 
 export default app;
