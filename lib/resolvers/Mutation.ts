@@ -21,32 +21,6 @@ import { jwtAccessService } from '../services/access-service';
 import { jwtRefreshService } from '../services/refresh-service';
 import { JWT_SERVICE } from '../constants';
 
-// export const mutation = prismaObjectType({
-//     name: 'Mutations',
-//     definition(t) {
-//         t.prismaFields(['createUser']);
-//         t.field('add', {
-//             type: 'User',
-//             args: {
-//                 email: stringArg(),
-//                 password: stringArg(),
-//                 userName: stringArg({ nullable: true }),
-//             },
-//             resolve: async (root, args, ctx, info) => {
-//                 const user = ctx.prisma.createUser({
-//                     email: ctx.email,
-//                     password: ctx.password,
-//                     userName: ctx.userName,
-//                 });
-
-//                 return {
-//                     ...user,
-//                 };
-//             },
-//         });
-//     },
-// });
-
 export const Auth = mutationType({
     definition(t) {
         t.field('signup', {

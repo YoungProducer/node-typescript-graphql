@@ -10,10 +10,6 @@ import {
     UserProfile,
     securityId,
 } from '../types/auth';
-import {
-    UserController,
-    UserModel,
-} from '../models';
 import { USER_SERVICE } from '../constants';
 import { prisma, User } from '../../prisma/generated/prisma-client';
 
@@ -26,7 +22,6 @@ export class MyUserService implements UserService {
         const { email, password } = credentials;
 
         const foundUser = await prisma.user({ email });
-        // const foundUser = await UserController.findOne({ email });
 
         if (!foundUser) {
             throw new HttpErrors.Unauthorized(USER_SERVICE.INVALID_CREDENTIALS_ERROR);
@@ -46,6 +41,7 @@ export class MyUserService implements UserService {
             [securityId]: user.id,
             userName: user.userName || "",
             email: user.email,
+            role: user.role,
         };
     }
 }
