@@ -6,7 +6,6 @@ export const SignUpPayload = objectType({
         t.string('email');
         t.string('userName');
         t.string('id');
-        // t.field('user', { type: 'User' });
     },
 });
 

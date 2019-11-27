@@ -1,14 +1,10 @@
 import { promisify } from 'util';
 import * as HttpErrors from 'http-errors';
 
-import {
-    UserController,
-    TokenController,
-} from '../models/index';
 import { RefreshTokenService } from '../types/services';
 import { UserProfile, securityId } from '../types/auth';
 import { JWT_SERVICE } from '../constants/index';
-import { prisma, User, Token } from '../../prisma/generated/prisma-client';
+import { prisma, Token } from '../../prisma/generated/prisma-client';
 
 const uuid = require('uuid/v4');
 const jwt = require('jsonwebtoken');

@@ -1,14 +1,7 @@
-# Nodejs + Typescript + Webpack app starter
-
-![img](https://i.imgur.com/lm5HI8a.gif)
-
-
 ## Quick Overview
 
 This is a minimalistic starter app that benefits of the strong typing of the Typescript compiler plus all the latest ES6, ES7+ features
 on a Nodejs application, already configured with a custom .vscode to allow debugging inside a Visual studio code IDE
-
-see also [node babel webpack starter](https://github.com/kinotto/node-babel-webpack-starter)
 
 ## Usage
 
@@ -16,9 +9,11 @@ clone the repository then:
 
 `npm install` or `yarn install`
 
-`npm start` (to start the server)
+Install prisma -> `npm i -g prisma`
 
-`npm build` (to build the code)
+`cd prisma` -> `sudo docker-compose up -d` -> `prisma deploy`
+
+`npm run dev` (to start the server)
 
 ## Features
 
