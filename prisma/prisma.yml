@@ -1,4 +1,5 @@
-endpoint: http://0.0.0.0:4466
+#endpoint: http://0.0.0.0:4466
+endpoint: http://0.0.0.0:4466/auth-service/dev
 #endpoint: http://localhost:4466/node-typescript/dev
 datamodel: datamodel.prisma
 databaseType: document

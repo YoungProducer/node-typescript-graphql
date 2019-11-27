@@ -1,12 +1,9 @@
 import {
     stringArg,
-    idArg,
     mutationType,
-    objectType,
 } from 'nexus';
 import * as _ from 'lodash';
-
-import { prismaObjectType } from 'nexus-prisma';
+import { UserInputError } from 'apollo-server';
 
 import {
     SignUpCredentials,
@@ -21,31 +18,7 @@ import { jwtAccessService } from '../services/access-service';
 import { jwtRefreshService } from '../services/refresh-service';
 import { JWT_SERVICE } from '../constants';
 
-// export const mutation = prismaObjectType({
-//     name: 'Mutations',
-//     definition(t) {
-//         t.prismaFields(['createUser']);
-//         t.field('add', {
-//             type: 'User',
-//             args: {
-//                 email: stringArg(),
-//                 password: stringArg(),
-//                 userName: stringArg({ nullable: true }),
-//             },
-//             resolve: async (root, args, ctx, info) => {
-//                 const user = ctx.prisma.createUser({
-//                     email: ctx.email,
-//                     password: ctx.password,
-//                     userName: ctx.userName,
-//                 });
-
-//                 return {
-//                     ...user,
-//                 };
-//             },
-//         });
-//     },
-// });
+import { handleSignUpError } from '../errors/handleSignUpError';
 
 export const Auth = mutationType({
     definition(t) {
@@ -57,20 +30,26 @@ export const Auth = mutationType({
                 password: stringArg(),
             },
             resolve: async (root, credentials: SignUpCredentials, ctx) => {
-                validateCredentials(_.pick(credentials, ['email', 'password']));
+                try {
+                    validateCredentials(_.pick(credentials, ['email', 'password']));
 
-                credentials.password = await bcryptHasher.hashPassword(credentials.password);
+                    credentials.password = await bcryptHasher.hashPassword(credentials.password);
 
-                const savedUser = await prisma.createUser({
-                    email: credentials.email,
-                    password: credentials.password,
-                    userName: credentials.userName,
-                    role: "DEFAULT_USER",
-                });
+                    const savedUser = await prisma.createUser({
+                        email: credentials.email,
+                        password: credentials.password,
+                        userName: credentials.userName,
+                        role: "DEFAULT_USER",
+                    });
 
-                return {
-                    ...savedUser,
-                };
+                    return {
+                        ...savedUser,
+                    };
+                } catch (error) {
+                    handleSignUpError(error, credentials);
+                    // throw error;
+                }
+
             },
         });
         t.field('signin', {
