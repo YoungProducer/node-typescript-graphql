@@ -8,6 +8,7 @@
         "no-duplicate-imports": false,
         "ter-arrow-parens": false,
         "variable-name": false,
-        "prefer-const": false
+        "prefer-const": false,
+        "class-name": false
     }
 }
