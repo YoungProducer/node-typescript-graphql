@@ -17,6 +17,7 @@ export class JWTAuth implements AuthStrategy {
     }
 
     extractCredentials(request: Request): string {
+        console.log(request.cookies);
         if (!request.cookies['accessToken']) {
             throw new HttpErrors.Unauthorized('Authorization token not found');
         }

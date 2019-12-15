@@ -11,151 +11,18 @@ declare global {
 }
 
 export interface NexusGenInputs {
-  TokenWhereInput: { // input type
-    AND?: NexusGenInputs['TokenWhereInput'][] | null; // [TokenWhereInput!]
-    id?: string | null; // ID
-    id_contains?: string | null; // ID
-    id_ends_with?: string | null; // ID
-    id_gt?: string | null; // ID
-    id_gte?: string | null; // ID
-    id_in?: string[] | null; // [ID!]
-    id_lt?: string | null; // ID
-    id_lte?: string | null; // ID
-    id_not?: string | null; // ID
-    id_not_contains?: string | null; // ID
-    id_not_ends_with?: string | null; // ID
-    id_not_in?: string[] | null; // [ID!]
-    id_not_starts_with?: string | null; // ID
-    id_starts_with?: string | null; // ID
-    loginId?: string | null; // String
-    loginId_contains?: string | null; // String
-    loginId_ends_with?: string | null; // String
-    loginId_gt?: string | null; // String
-    loginId_gte?: string | null; // String
-    loginId_in?: string[] | null; // [String!]
-    loginId_lt?: string | null; // String
-    loginId_lte?: string | null; // String
-    loginId_not?: string | null; // String
-    loginId_not_contains?: string | null; // String
-    loginId_not_ends_with?: string | null; // String
-    loginId_not_in?: string[] | null; // [String!]
-    loginId_not_starts_with?: string | null; // String
-    loginId_starts_with?: string | null; // String
-    token?: string | null; // String
-    token_contains?: string | null; // String
-    token_ends_with?: string | null; // String
-    token_gt?: string | null; // String
-    token_gte?: string | null; // String
-    token_in?: string[] | null; // [String!]
-    token_lt?: string | null; // String
-    token_lte?: string | null; // String
-    token_not?: string | null; // String
-    token_not_contains?: string | null; // String
-    token_not_ends_with?: string | null; // String
-    token_not_in?: string[] | null; // [String!]
-    token_not_starts_with?: string | null; // String
-    token_starts_with?: string | null; // String
-    user?: NexusGenInputs['UserWhereInput'] | null; // UserWhereInput
-  }
-  TokenWhereUniqueInput: { // input type
-    id?: string | null; // ID
-    loginId?: string | null; // String
-    token?: string | null; // String
-  }
-  UserWhereInput: { // input type
-    AND?: NexusGenInputs['UserWhereInput'][] | null; // [UserWhereInput!]
-    email?: string | null; // String
-    email_contains?: string | null; // String
-    email_ends_with?: string | null; // String
-    email_gt?: string | null; // String
-    email_gte?: string | null; // String
-    email_in?: string[] | null; // [String!]
-    email_lt?: string | null; // String
-    email_lte?: string | null; // String
-    email_not?: string | null; // String
-    email_not_contains?: string | null; // String
-    email_not_ends_with?: string | null; // String
-    email_not_in?: string[] | null; // [String!]
-    email_not_starts_with?: string | null; // String
-    email_starts_with?: string | null; // String
-    id?: string | null; // ID
-    id_contains?: string | null; // ID
-    id_ends_with?: string | null; // ID
-    id_gt?: string | null; // ID
-    id_gte?: string | null; // ID
-    id_in?: string[] | null; // [ID!]
-    id_lt?: string | null; // ID
-    id_lte?: string | null; // ID
-    id_not?: string | null; // ID
-    id_not_contains?: string | null; // ID
-    id_not_ends_with?: string | null; // ID
-    id_not_in?: string[] | null; // [ID!]
-    id_not_starts_with?: string | null; // ID
-    id_starts_with?: string | null; // ID
-    password?: string | null; // String
-    password_contains?: string | null; // String
-    password_ends_with?: string | null; // String
-    password_gt?: string | null; // String
-    password_gte?: string | null; // String
-    password_in?: string[] | null; // [String!]
-    password_lt?: string | null; // String
-    password_lte?: string | null; // String
-    password_not?: string | null; // String
-    password_not_contains?: string | null; // String
-    password_not_ends_with?: string | null; // String
-    password_not_in?: string[] | null; // [String!]
-    password_not_starts_with?: string | null; // String
-    password_starts_with?: string | null; // String
-    refreshTokens_some?: NexusGenInputs['TokenWhereInput'] | null; // TokenWhereInput
-    role?: NexusGenEnums['Role'] | null; // Role
-    role_in?: NexusGenEnums['Role'][] | null; // [Role!]
-    role_not?: NexusGenEnums['Role'] | null; // Role
-    role_not_in?: NexusGenEnums['Role'][] | null; // [Role!]
-    userName?: string | null; // String
-    userName_contains?: string | null; // String
-    userName_ends_with?: string | null; // String
-    userName_gt?: string | null; // String
-    userName_gte?: string | null; // String
-    userName_in?: string[] | null; // [String!]
-    userName_lt?: string | null; // String
-    userName_lte?: string | null; // String
-    userName_not?: string | null; // String
-    userName_not_contains?: string | null; // String
-    userName_not_ends_with?: string | null; // String
-    userName_not_in?: string[] | null; // [String!]
-    userName_not_starts_with?: string | null; // String
-    userName_starts_with?: string | null; // String
-  }
-  UserWhereUniqueInput: { // input type
-    email?: string | null; // String
-    id?: string | null; // ID
-    userName?: string | null; // String
-  }
 }
 
 export interface NexusGenEnums {
-  Role: "ADMIN" | "DEFAULT_USER"
-  TokenOrderByInput: "id_ASC" | "id_DESC" | "loginId_ASC" | "loginId_DESC" | "token_ASC" | "token_DESC"
-  UserOrderByInput: "email_ASC" | "email_DESC" | "id_ASC" | "id_DESC" | "password_ASC" | "password_DESC" | "role_ASC" | "role_DESC" | "userName_ASC" | "userName_DESC"
 }
 
 export interface NexusGenRootTypes {
-  AggregateToken: { // root type
-    count: number; // Int!
-  }
-  AggregateUser: { // root type
-    count: number; // Int!
+  Me: { // root type
+    email?: string | null; // String
+    id?: string | null; // String
+    userName?: string | null; // String
   }
   Mutation: {};
-  PageInfo: { // root type
-    endCursor?: string | null; // String
-    hasNextPage: boolean; // Boolean!
-    hasPreviousPage: boolean; // Boolean!
-    startCursor?: string | null; // String
-  }
-  Protected: { // root type
-    data?: string | null; // String
-  }
   Query: {};
   RefreshPayload: { // root type
     email?: string | null; // String
@@ -177,27 +44,11 @@ export interface NexusGenRootTypes {
     loginId: string; // String!
     token: string; // String!
   }
-  TokenConnection: { // root type
-    edges: NexusGenRootTypes['TokenEdge'][]; // [TokenEdge!]!
-    pageInfo: NexusGenRootTypes['PageInfo']; // PageInfo!
-  }
-  TokenEdge: { // root type
-    cursor: string; // String!
-    node: NexusGenRootTypes['Token']; // Token!
-  }
   User: { // root type
     email: string; // String!
     id: string; // ID!
     password: string; // String!
     userName?: string | null; // String
-  }
-  UserConnection: { // root type
-    edges: NexusGenRootTypes['UserEdge'][]; // [UserEdge!]!
-    pageInfo: NexusGenRootTypes['PageInfo']; // PageInfo!
-  }
-  UserEdge: { // root type
-    cursor: string; // String!
-    node: NexusGenRootTypes['User']; // User!
   }
   String: string;
   Int: number;
@@ -207,44 +58,21 @@ export interface NexusGenRootTypes {
 }
 
 export interface NexusGenAllTypes extends NexusGenRootTypes {
-  TokenWhereInput: NexusGenInputs['TokenWhereInput'];
-  TokenWhereUniqueInput: NexusGenInputs['TokenWhereUniqueInput'];
-  UserWhereInput: NexusGenInputs['UserWhereInput'];
-  UserWhereUniqueInput: NexusGenInputs['UserWhereUniqueInput'];
-  Role: NexusGenEnums['Role'];
-  TokenOrderByInput: NexusGenEnums['TokenOrderByInput'];
-  UserOrderByInput: NexusGenEnums['UserOrderByInput'];
 }
 
 export interface NexusGenFieldTypes {
-  AggregateToken: { // field return type
-    count: number; // Int!
-  }
-  AggregateUser: { // field return type
-    count: number; // Int!
+  Me: { // field return type
+    email: string | null; // String
+    id: string | null; // String
+    userName: string | null; // String
   }
   Mutation: { // field return type
-    protected: NexusGenRootTypes['Protected'] | null; // Protected
     refresh: NexusGenRootTypes['RefreshPayload'] | null; // RefreshPayload
     signin: NexusGenRootTypes['SignInPayload'] | null; // SignInPayload
     signup: NexusGenRootTypes['SignUpPayload'] | null; // SignUpPayload
   }
-  PageInfo: { // field return type
-    endCursor: string | null; // String
-    hasNextPage: boolean; // Boolean!
-    hasPreviousPage: boolean; // Boolean!
-    startCursor: string | null; // String
-  }
-  Protected: { // field return type
-    data: string | null; // String
-  }
   Query: { // field return type
-    token: NexusGenRootTypes['Token'] | null; // Token
-    tokens: NexusGenRootTypes['Token'][]; // [Token!]!
-    tokensConnection: NexusGenRootTypes['TokenConnection']; // TokenConnection!
-    user: NexusGenRootTypes['User'] | null; // User
-    users: NexusGenRootTypes['User'][]; // [User!]!
-    usersConnection: NexusGenRootTypes['UserConnection']; // UserConnection!
+    me: NexusGenRootTypes['Me'] | null; // Me
   }
   RefreshPayload: { // field return type
     email: string | null; // String
@@ -267,15 +95,6 @@ export interface NexusGenFieldTypes {
     token: string; // String!
     user: NexusGenRootTypes['User']; // User!
   }
-  TokenConnection: { // field return type
-    aggregate: NexusGenRootTypes['AggregateToken']; // AggregateToken!
-    edges: NexusGenRootTypes['TokenEdge'][]; // [TokenEdge!]!
-    pageInfo: NexusGenRootTypes['PageInfo']; // PageInfo!
-  }
-  TokenEdge: { // field return type
-    cursor: string; // String!
-    node: NexusGenRootTypes['Token']; // Token!
-  }
   User: { // field return type
     email: string; // String!
     id: string; // ID!
@@ -283,22 +102,10 @@ export interface NexusGenFieldTypes {
     refreshTokens: NexusGenRootTypes['Token'][] | null; // [Token!]
     userName: string | null; // String
   }
-  UserConnection: { // field return type
-    aggregate: NexusGenRootTypes['AggregateUser']; // AggregateUser!
-    edges: NexusGenRootTypes['UserEdge'][]; // [UserEdge!]!
-    pageInfo: NexusGenRootTypes['PageInfo']; // PageInfo!
-  }
-  UserEdge: { // field return type
-    cursor: string; // String!
-    node: NexusGenRootTypes['User']; // User!
-  }
 }
 
 export interface NexusGenArgTypes {
   Mutation: {
-    protected: { // args
-      data?: string | null; // String
-    }
     refresh: { // args
       token?: string | null; // String
     }
@@ -313,47 +120,8 @@ export interface NexusGenArgTypes {
     }
   }
   Query: {
-    token: { // args
-      where: NexusGenInputs['TokenWhereUniqueInput']; // TokenWhereUniqueInput!
-    }
-    tokens: { // args
-      after?: string | null; // String
-      before?: string | null; // String
-      first?: number | null; // Int
-      last?: number | null; // Int
-      orderBy?: NexusGenEnums['TokenOrderByInput'] | null; // TokenOrderByInput
-      skip?: number | null; // Int
-      where?: NexusGenInputs['TokenWhereInput'] | null; // TokenWhereInput
-    }
-    tokensConnection: { // args
-      after?: string | null; // String
-      before?: string | null; // String
-      first?: number | null; // Int
-      last?: number | null; // Int
-      orderBy?: NexusGenEnums['TokenOrderByInput'] | null; // TokenOrderByInput
-      skip?: number | null; // Int
-      where?: NexusGenInputs['TokenWhereInput'] | null; // TokenWhereInput
-    }
-    user: { // args
-      where: NexusGenInputs['UserWhereUniqueInput']; // UserWhereUniqueInput!
-    }
-    users: { // args
-      after?: string | null; // String
-      before?: string | null; // String
-      first?: number | null; // Int
-      last?: number | null; // Int
-      orderBy?: NexusGenEnums['UserOrderByInput'] | null; // UserOrderByInput
-      skip?: number | null; // Int
-      where?: NexusGenInputs['UserWhereInput'] | null; // UserWhereInput
-    }
-    usersConnection: { // args
-      after?: string | null; // String
-      before?: string | null; // String
-      first?: number | null; // Int
-      last?: number | null; // Int
-      orderBy?: NexusGenEnums['UserOrderByInput'] | null; // UserOrderByInput
-      skip?: number | null; // Int
-      where?: NexusGenInputs['UserWhereInput'] | null; // UserWhereInput
+    me: { // args
+      data?: string | null; // String
     }
   }
 }
@@ -363,11 +131,11 @@ export interface NexusGenAbstractResolveReturnTypes {
 
 export interface NexusGenInheritedFields {}
 
-export type NexusGenObjectNames = "AggregateToken" | "AggregateUser" | "Mutation" | "PageInfo" | "Protected" | "Query" | "RefreshPayload" | "SignInPayload" | "SignUpPayload" | "Token" | "TokenConnection" | "TokenEdge" | "User" | "UserConnection" | "UserEdge";
+export type NexusGenObjectNames = "Me" | "Mutation" | "Query" | "RefreshPayload" | "SignInPayload" | "SignUpPayload" | "Token" | "User";
 
-export type NexusGenInputNames = "TokenWhereInput" | "TokenWhereUniqueInput" | "UserWhereInput" | "UserWhereUniqueInput";
+export type NexusGenInputNames = never;
 
-export type NexusGenEnumNames = "Role" | "TokenOrderByInput" | "UserOrderByInput";
+export type NexusGenEnumNames = never;
 
 export type NexusGenInterfaceNames = never;
 

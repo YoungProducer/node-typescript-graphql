@@ -1,9 +1,11 @@
-import { jwtAuthentication } from './jwtAuthMiddleware';
+import { shield } from 'graphql-shield';
+
+import { jwtAuthentication, jwt } from './jwtAuthMiddleware';
 import { permissions } from './permissionsMiddleware';
 
 const authMiddleware = {
-    Mutation: {
-        protected: jwtAuthentication,
+    Query: {
+        me: jwtAuthentication,
     },
 };
 
@@ -16,4 +18,11 @@ const permissionsMiddleware = {
     },
 };
 
-export const middlewares = [authMiddleware, permissionsMiddleware];
+const auth = shield({
+    Query: {
+        me: jwt,
+    },
+});
+
+// export const middlewares = [authMiddleware, permissionsMiddleware];
+export const middlewares = [authMiddleware];

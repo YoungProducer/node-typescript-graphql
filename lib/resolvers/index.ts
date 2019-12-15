@@ -1,6 +1,7 @@
 import { Auth } from './Mutation';
 import { User } from './User';
-import { SignUpPayload, SignInPayload, RefreshPayload, Protected } from './AuthPayloads';
+import { SignUpPayload, SignInPayload, RefreshPayload, Me } from './AuthPayloads';
+import { UserData } from './Queries';
 
 export const resolvers = {
     Auth,
@@ -8,5 +9,6 @@ export const resolvers = {
     SignUpPayload,
     SignInPayload,
     RefreshPayload,
-    Protected,
+    Me,
+    UserData,
 };

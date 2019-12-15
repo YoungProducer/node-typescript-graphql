@@ -1,4 +1,5 @@
 import * as dotenv from 'dotenv';
+import * as cors from 'cors';
 import * as cookieParser from 'cookie-parser';
 import * as helmet from 'helmet';
 import { GraphQLServer } from 'graphql-yoga';
@@ -12,12 +13,14 @@ dotenv.config();
 
 const { PORT = 4000 } = process.env;
 
+const corsOptions = {
+    credentials: true,
+    origin: ['http://localhost:8080'],
+};
 const opts = {
     port: PORT,
-    cors: {
-        credentials: true,
-        origin: ["http://localhost:8080"],
-    },
+    credentials: true,
+    origin: ['http://localhost:8080'],
 };
 
 const server = new GraphQLServer({
@@ -31,6 +34,7 @@ const server = new GraphQLServer({
     },
 });
 
+server.express.use(cors(corsOptions));
 server.express.use(helmet({
     xssFilter: true,
     hidePoweredBy: true,

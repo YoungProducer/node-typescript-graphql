@@ -24,13 +24,13 @@ export class MyUserService implements UserService {
         const foundUser = await prisma.user({ email });
 
         if (!foundUser) {
-            throw new HttpErrors.Unauthorized(USER_SERVICE.INVALID_CREDENTIALS_ERROR);
+            throw new HttpErrors.Unauthorized('User not found');
         }
 
         const passwordMatched = await this.bcryptHasher.comparePasswords(password, foundUser.password);
 
         if (!passwordMatched) {
-            throw new HttpErrors.Unauthorized(USER_SERVICE.INVALID_CREDENTIALS_ERROR);
+            throw new HttpErrors.Unauthorized('Incorrect password');
         }
 
         return foundUser;

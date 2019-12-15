@@ -27,9 +27,11 @@ export const RefreshPayload = objectType({
     },
 });
 
-export const Protected = objectType({
-    name: 'Protected',
+export const Me = objectType({
+    name: 'Me',
     definition(t) {
-        t.string('data');
+        t.string('id');
+        t.string('email');
+        t.string('userName');
     },
 });
