@@ -61,7 +61,7 @@
     "@types/cors": "^2.8.6",
     "@types/csurf": "^1.9.36",
     "@types/superagent": "^4.1.4",
-    "apollo-server": "^2.9.12",
+    "apollo-server": "^2.25.4",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "cookie-parser": "^1.4.4",
